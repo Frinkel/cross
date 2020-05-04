@@ -30,9 +30,7 @@
 * [Getting Started](#getting-started)
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
-* [Usage](#usage)
 * [Roadmap](#roadmap)
-* [Contributing](#contributing)
 * [License](#license)
 * [Contact](#contact)
 * [Acknowledgements](#acknowledgements)
@@ -42,7 +40,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![Product Name Screen Shot][product-screenshot]]
 
 So I use lesser-known social media websites - mainly because I'm not much a fan of Twitter, Facebook, and
 other centralized platforms. I've noticed a problem, though - it's kinda difficult for me to manage posting across
@@ -58,11 +56,11 @@ I'd like.
 
 ### Built With
 
-* [Python]()
-* [requests]()
-* [Mastodon.py]()
-* [jsonlines]()
-* [PySimpleGUIQt]()
+* [Python](https://www.python.org/)
+* [requests](https://2.python-requests.org/en/master/)
+* [Mastodon.py](https://mastodonpy.readthedocs.io/en/stable/)
+* [jsonlines](https://jsonlines.readthedocs.io/en/latest/)
+* [PySimpleGUIQt](https://github.com/PySimpleGUI/PySimpleGUI/tree/master/PySimpleGUIQt)
 
 
 
@@ -83,20 +81,22 @@ I'd like.
 ## Roadmap
 
 The following are plans I have for the possible future for this application:
+* Automate overwriting account entries
+* Add IFTTT support via Maker Webhooks (possibly? Character limits may make that difficult)
 * Figure out/fix OAuth2 integration with Hubzilla so I can stop using basic web auth
 * Attempt to plea with Twitter for a developer account and add Twitter support
-* Automate overwriting account entries
-* Add IFTTT support via Maker Webhooks
-* Possibly make GUIs for the authentication handlers?
-* Possibly make this a webapp, store account entries in relational database instead of flat file
+* Make GUIs for the authentication handlers?
+* Port this to Android and maybe even iOS if doable - either would be a challenge
+* Add image attachment support
+* Add support for Mastodon-specific and Hubzilla-specific post capabilities
+* Make this a webapp, store account entries in relational database instead of flat file
 
 
 
 <!-- LICENSE -->
 ## License
-
-
-
+Currently not decided on a license at this exact moment, mainly because I haven't quite done the research on it just
+yet! Will get that fixed soon, however!
 
 
 <!-- CONTACT -->
@@ -114,8 +114,5 @@ Project Link: [https://github.com/Frinkel/cross](https://github.com/Frinkel/cros
 * My teachers and mentors, for being patient with me
 * My friends on the Fediverse for keeping me sane
 * [Insomnia REST Client](https://insomnia.rest/) for saving me from a dozen headaches
-
-### No thanks to...
-* Hubzilla's non-existent OAuth documentation :V
 
 [product-screenshot]: ../assets/img/CrossGUI.png?raw=true
