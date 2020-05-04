@@ -21,11 +21,13 @@
 
 # ***  END HOLLY RANT TIME  ***
 
+import os
 import base64
 import getpass
 import re
 import requests
 import json
+import jsonlines
 # We need a whole slew of things. There's no API wrapper for Hubzilla, so we kinda have to roll our own.
 # requests will be used to actually send web requests to the instance for validation.
 # re will be used to perform a tad bit of sanitation on some of the user input.
@@ -100,12 +102,20 @@ def check_usercred(instance, b64creds):
 
 
 def main():
-    # Let's initialize variables for all the information that we need.
-    account_name = ""
-    account_type = 1  # Mastodon accounts are 0, Hubzilla accounts 1. May add support for more accounts down the line.
-    instance = ""
+    # Information we're going to put into the json file.
+    account = {}
+    account['account_name'] = ""
+    account['account_type'] = 1  # Mastodon accounts are 0, Hubzilla accounts 1. May add support for more accounts down the line.
+    account['instance'] = ""
+    account['credentials'] = ""
+
+    # Information we're going to be playing with and not writing directly to the file.
     channel_name = ""
     password = ""
+
+    # Location of the userdata file.
+    dirname = os.path.dirname(__file__)
+    userdata_file = os.path.join(dirname, '../userdata.jl')
 
     # Make a pretty intro screen.
     print("Cross - a Mastodon/Hubzilla cross-poster")
@@ -113,14 +123,14 @@ def main():
     print("----------------------------------------", end="\n\n")
 
     # Ask for the instance name.
-    instance = input("Please enter your instance's domain (i.e. example.com): ")
+    account['instance'] = input("Please enter your instance's domain (i.e. example.com): ")
     # Strip information that might exist out of the URL, if it does.
-    instance = re.sub("^https?://", "", instance)   # Removes http(s) from the beginning.
-    instance = re.sub("/.*$", "", instance)         # This *should* remove everything after the domain name.
+    account['instance'] = re.sub("^https?://", "", account['instance'])   # Removes http(s) from the beginning.
+    account['instance'] = re.sub("/.*$", "", account['instance'])         # This *should* remove everything after the domain name.
 
     # Apply a few checks to ensure the instance given is (likely) a valid Hubzilla instance.
     # Neither are a perfect science, unfortunately.
-    if basic_check(instance) is False:
+    if basic_check(account['instance']) is False:
         # If we get here, the host-meta page failed to return properly, a page that exists by default on Hubzilla.
         # We're going to assume, therefore, that this instance is not working properly, if it's even an instance.
         # Either that, or someone made an error that even regex can't fix.
@@ -129,25 +139,36 @@ def main():
         # it honestly makes sense to me in this situation to bail at this point, and it makes less sense to drag
         # out the execution all the way to the end with a bunch of else blocks.
         exit(1)
-    if check_nodeinfo(instance) is False:
+    if check_nodeinfo(account['instance']) is False:
         # If we get here, the nodeinfo page returned, but it appears to have software that isn't Hubzilla.
         # We're going to assume that they typed in the URL of an instance running other software - i.e. Mastodon
         print("Nodeinfo claims this isn't a Hubzilla instance. Bailing...")
         exit(1)
 
     # Now, we can ask for the user information.
-    channel_name = input("Please enter your channel name (this is what goes before @" + instance + "): ")
-    channel_name = re.sub("^@", "", channel_name)   # Remove leading @, should they add it themselves.
-    authdetails = getpass.getpass(prompt='Enter your password: ')
-    authdetails = base64_creds(channel_name, authdetails)
+    channel_name = input("Please enter your channel name (this is what goes before @" + account['instance'] + "): ")
+    channel_name = re.sub("^@", "", channel_name)   # Remove leading @, should they add it for some reason.
+    # Prompt for the password using getpass, which makes it so the output is not printed to the screen.
+    account['credentials'] = getpass.getpass(prompt='Enter your password: ')
+
+    # Immediately overwrite the raw password in memory with the base64-encoded user credentials.
+    # Which... still has the password in it, but at least the password won't be staring right at you in the face.
+    # Ugh, I REALLY wish the documentation for Hubzilla weren't hot garbage...
+    account['credentials'] = base64_creds(channel_name, account['credentials'])
 
     # Attempt to use the credentials. Bail if fails.
-    if check_usercred(instance, authdetails) is False:
+    if check_usercred(account['instance'], account['credentials']) is False:
         print("Authorization attempt failed. Bailing...")
         exit(1)
-    # Create the account name based on channel name and instance domain.
-    account_name = "@" + channel_name + "@" + instance
 
+    # Make the name of the account the full channel name (including the instance name.)
+    account['account_name'] = channel_name + "@" + account['instance']
+
+    # I'm going to be using a JSON Lines file (http://jsonlines.org/) for storing details. (I just like JSON okay)
+    json_account = json.dumps(account)
+    with jsonlines.open(userdata_file, mode='a', flush=True) as writer:
+        writer.write(account)
+    print("Account saved to file!")
 
 if __name__ == '__main__':
     main()
