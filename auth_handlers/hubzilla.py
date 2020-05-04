@@ -69,14 +69,20 @@ def check_nodeinfo(instance):
         return False
 
 
+# Smash the username and password into a base64-encoded string suitable for webauth.
+def base64_creds(channel_name, password):
+    # Yep, this is the format. Hope your password doesn't have a colon in it! 8D
+    creds = channel_name + ":" + password
+    # I have to admit, I don't understand why I have to encode the base64 like this, it seems redundant.
+    # It's what the samples I found on the net claim is how to do it, though, and it Works(tm), so...
+    creds64 = str(base64.b64encode(creds.encode("utf-8")), "utf-8")
+    return creds64
+
+
 # Attempts to authenticate and pull info using the credentials given using the Hubzilla API.
-def check_usercred(instance, channel_name, password):
-    # Put the username and password into this odd format required for basic web auth.
-    usercheck_creds = channel_name + ":" + password
-    # This then needs to be base64 encoded. (At least, it appears to, based on the examples I'm referring to...)
-    usercheck_cred64 = str(base64.b64encode(usercheck_creds.encode("utf-8")), "utf-8")
+def check_usercred(instance, b64creds):
     # And then we put this into the authorization header.
-    usercheck_header = {'authorization': "Basic " + usercheck_cred64}
+    usercheck_header = {'authorization': "Basic " + b64creds}
 
     # Any API call that requires authentication should do here. I'm just using the basic channel export API function.
     usercheck_url = "https://" + instance + "/api/z/1.0/channel/export/basic"
@@ -132,10 +138,11 @@ def main():
     # Now, we can ask for the user information.
     channel_name = input("Please enter your channel name (this is what goes before @" + instance + "): ")
     channel_name = re.sub("^@", "", channel_name)   # Remove leading @, should they add it themselves.
-    pword = getpass.getpass(prompt='Enter your password: ')
+    authdetails = getpass.getpass(prompt='Enter your password: ')
+    authdetails = base64_creds(channel_name, authdetails)
 
     # Attempt to use the credentials. Bail if fails.
-    if check_usercred(instance, channel_name, pword) is False:
+    if check_usercred(instance, authdetails) is False:
         print("Authorization attempt failed. Bailing...")
         exit(1)
     # Create the account name based on channel name and instance domain.
