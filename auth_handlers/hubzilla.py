@@ -167,17 +167,21 @@ def main():
     # I'm going to be using a JSON Lines file (http://jsonlines.org/) for storing details. (I just like JSON okay)
     json_account = json.dumps(account)
     acct_already_exists = False
-    with jsonlines.open(userdata_file) as reader:
-        for obj in reader:
-            if obj['account_name'] == account['account_name']:
-                acct_already_exists = True
+    try:
+        with jsonlines.open(userdata_file) as reader:
+            for obj in reader:
+                if obj['account_name'] == account['account_name']:
+                    acct_already_exists = True
+    except FileNotFoundError:
+        # If we get here, the account definitely isn't in the userfile yet.
+        acct_already_exists = False
     if acct_already_exists:
         # TODO: Figure out how to delete the specific line automatically.
         # I know how I'd do it in Linux, but this needs to be OS-agnostic.
         print("The account already exists in the user data file.")
         print("Please delete the line with your account and run this script again.")
     else:
-        with jsonlines.open(userdata_file, mode='a', flush=True) as writer:
+        with jsonlines.open(userdata_file, mode='a+', flush=True) as writer:
             writer.write(account)
         print("Account saved to file!")
 

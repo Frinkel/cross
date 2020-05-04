@@ -14,7 +14,9 @@ import time
 # mastodon for, well, Mastodon support.
 # os to access the userdata file.
 # requests for sending API calls for Hubzilla.
-# And finally, jsonlines for handling the jl file.
+# And jsonlines for handling the jl file.
+# I also add pprint for the sake of printing the different accounts,
+# and time for the sake of pausing before posting.
 # Let's get to work!
 
 

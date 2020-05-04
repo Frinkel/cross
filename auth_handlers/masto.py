@@ -109,7 +109,7 @@ def main():
         print("The account already exists in the user data file.")
         print("Please delete the line with your account and run this script again.")
     else:
-        with jsonlines.open(userdata_file, mode='a', flush=True) as writer:
+        with jsonlines.open(userdata_file, mode='a+', flush=True) as writer:
             writer.write(account)
         print("Account saved to file!")
 

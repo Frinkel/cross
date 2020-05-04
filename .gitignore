@@ -1,4 +1,5 @@
 .idea/*
 venv/*
+__pycache__/*
 userdata.jl
 ref-userdata.jl
