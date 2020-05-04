@@ -114,7 +114,5 @@ def main():
         print("Account saved to file!")
 
 
-
-
 if __name__ == '__main__':
     main()
