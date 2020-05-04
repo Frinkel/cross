@@ -40,7 +40,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]]
+![Product Name Screen Shot][product-screenshot]
 
 So I use lesser-known social media websites - mainly because I'm not much a fan of Twitter, Facebook, and
 other centralized platforms. I've noticed a problem, though - it's kinda difficult for me to manage posting across
