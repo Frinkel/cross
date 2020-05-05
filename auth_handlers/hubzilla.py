@@ -46,8 +46,7 @@ def basic_check(instance):
     # Check to see if the request returned with a 200 OK status code and return T/F based on that.
     if host_meta.status_code == 200:
         return True
-    else:
-        return False
+    return False
 
 
 # Check if the instance has a node_info page. If so, we can 100% confirm or deny it's a Hubzilla instance.
@@ -65,10 +64,9 @@ def check_nodeinfo(instance):
     # I'm including them both for sanity's sake.
     if nodeinfo["software"]["name"] in ("hubzilla", "redmatrix"):
         return True
-    else:
-        # If we get here, this key doesn't exist or includes something other than those two names.
-        # We're going to assume this is not a Hubzilla instance.
-        return False
+    # If we get here, this key doesn't exist or includes something other than those two names.
+    # We're going to assume this is not a Hubzilla instance.
+    return False
 
 
 # Smash the username and password into a base64-encoded string suitable for webauth.
@@ -96,8 +94,7 @@ def check_usercred(instance, b64creds):
     # If the request came out OK, return True. If not, return False.
     if usercheck.status_code == 200:
         return True
-    else:
-        return False
+    return False
 
 
 

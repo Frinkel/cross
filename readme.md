@@ -109,7 +109,8 @@ If you're on Linux or Mac OS, the command would be:
 source venv/bin/activate
 ```
  
-Now, install the package dependencies.
+Now, install the package dependencies. (Also, if you're interested in seeing all the dependencies for the project,
+they're listed in `requirements.txt`.)
 ```sh 
 pip3 install -r requirements.txt
 ```
@@ -133,6 +134,7 @@ There are two versions of the cross-poster: `poster.py` and `poster_gui.py`. It'
 share of weird quirks. It works if you're, say, in a console-only environment, though.
 
 #### poster_gui.py
+`python poster_gui.py`
 The window is split into two columns - on the left, you'll see all the accounts that exist in the userdata file. Hold
 Shift and select the accounts you wish to post to. Then, type your post out in the message boxes to the right, then
 hit "Post!" once done writing the post. (Also, FYI - please watch your character count, as the app currently can't
@@ -141,6 +143,7 @@ should close after a moment of hesitation. Check the console - it will tell you 
 instances. That's it!
 
 #### poster.py (Not Recommended)
+`python poster.py`
 Upon launching, you will be greeted with a list of the different accounts that are in the userdata file. This script
 will attempt to post to all of the accounts in the file.
 

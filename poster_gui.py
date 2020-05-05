@@ -7,7 +7,6 @@ from poster import post_hubzilla, post_mastodon
 import PySimpleGUIQt as sg
 import os
 import jsonlines
-import base64
 # We don't need pprint and time.
 # We don't even need requests or Mastodon.py, since it's in the other file.
 # We do, however, need PySimpleGUIQt. Y'know, for the GUI.
@@ -70,51 +69,50 @@ def main():
         # This will update the post length counter every 20 milliseconds if I'm understanding correctly.
         # And, of course, will also do the event listening and monitor the values of the different items.
         event, values = window.read(timeout=20)
-        if event is None:
-            # If we get here, the user closed the window. Break the loop without posting.
+        if event in (None, 'Post!'):
+            if event == 'Post!':
+                # If we get here, the user pressed the post button.
+                # Let's do a few sanity checks - first, let's make sure an account was selected to post to.
+                if not values[0]:
+                    # If we're here, no accounts were selected.
+                    sg.popup_ok("You didn't select any accounts!\n"
+                                "Try selecting an account before posting.\n",
+                                title="Error making post", icon=fa_arrows)
+                # Next, let's make sure they actually wrote a post.
+                elif values[2] == "":
+                    # They didn't actually write a post. Error out and let them know why.
+                    sg.popup_ok("You didn't actually write a post, silly!\n"
+                                "Try writing one first.", title="Error making post", icon=fa_arrows)
+                # We /should/ be good to continue at this point.
+                else:
+                    # Iterate over every account in the user data file.
+                    with jsonlines.open(userdata_file) as reader:
+                        for account in reader:
+                            # Check if the account was selected. If so, continue to make the post.
+                            if account['account_name'] in values[0]:
+                                # Use the Mastodon post function if it's a Mastodon account.
+                                if account['account_type'] == 0:
+                                    if post_mastodon(account, values[1], values[2]) is False:
+                                        print("Account " + account['account_name'] +
+                                              " ran into an issue during execution, skipping...")
+                                # Use the Hubzilla post function if it's a Hubzilla account.
+                                elif account['account_type'] == 1:
+                                    if post_hubzilla(account, values[1], values[2]) is False:
+                                        print("Account " + account['account_name'] +
+                                              " ran into an issue during execution, skipping...")
+                                # If we get to the "else", the entry has either been messed with, or is with a newer
+                                # version of this program made in the future where I've added more apps to cross-post
+                                # between. Either way, skip the account in this case.
+                                else:
+                                    print("Account " + account['account_name'] + " has an invalid type, skipping...")
+                    # And once we get here, we're done! Print a thank-you message in the console, break, and exit.
+                    print()
+                    print("Done! Thank you for using Cross.")
+            # We've either finished posting or the user closed the window. Either way, let's break.
             break
-        elif event == 'Post!':
-            # If we get here, the user pressed the post button.
-            # Let's do a few sanity checks - first, let's make sure an account was selected to post to.
-            if not values[0]:
-                # If we're here, no accounts were selected.
-                sg.popup_ok("You didn't select any accounts!\n"
-                            "Try selecting an account before posting.\n", title="Error making post", icon=fa_arrows)
-            # Next, let's make sure they actually wrote a post.
-            elif values[2] == "":
-                # They didn't actually write a post. Error out and let them know why.
-                sg.popup_ok("You didn't actually write a post, silly!\n"
-                            "Try writing one first.", title="Error making post", icon=fa_arrows)
-            # We /should/ be good to continue at this point.
-            else:
-                # Iterate over every account in the user data file.
-                with jsonlines.open(userdata_file) as reader:
-                    for account in reader:
-                        # Check if the account was selected. If so, continue to make the post.
-                        if account['account_name'] in values[0]:
-                            # Use the Mastodon post function if it's a Mastodon account.
-                            if account['account_type'] == 0:
-                                if post_mastodon(account, values[1], values[2]) is False:
-                                    print("Account " + account['account_name'] +
-                                          " ran into an issue during execution, skipping...")
-                            # Use the Hubzilla post function if it's a Hubzilla account.
-                            elif account['account_type'] == 1:
-                                if post_hubzilla(account, values[1], values[2]) is False:
-                                    print("Account " + account['account_name'] +
-                                          " ran into an issue during execution, skipping...")
-                            # If we get to the "else", the entry has either been messed with, or is with a newer version
-                            # of this program made in the future where I've added more apps to cross-post between.
-                            # Either way, skip the account in this case.
-                            else:
-                                print("Account " + account['account_name'] + " has an invalid type, skipping...")
-                # And once we get here, we're done! Print a thank-you message in the console, break, and exit.
-                print()
-                print("Done! Thank you for using Cross.")
-                break
-        else:
-            # We're not breaking or posting, so update the post length counter with the combined length of the
-            # subject/content warning and the post.
-            window['-CHARS-'].update(str(len(values[1]) + len(values[2])))
+        # If we get here, we're not breaking or posting, so update the post length counter with
+        # the combined length of the subject/content warning and the post.
+        window['-CHARS-'].update(str(len(values[1]) + len(values[2])))
     window.close()
 
 

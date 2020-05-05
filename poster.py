@@ -31,8 +31,7 @@ def post_hubzilla(hubzilla_account, subject, post):
     response = requests.request("POST", url, data="", headers=headers, params=parameters)
     if response.status_code < 300:
         return True
-    else:
-        return False
+    return False
 
 
 def post_mastodon(mastodon_account, subject, post):
@@ -91,9 +90,6 @@ def main():
         post.append(line)
     # Join all the paragraphs typed with a line break.
     post = '\n'.join(post)
-    # Send a system command to clear the console screen.
-    clear_screen = lambda: os.system('cls')
-    clear_screen()
     # Print out a little post preview, including character count.
     print("Post Preview:")
     print(subject)
