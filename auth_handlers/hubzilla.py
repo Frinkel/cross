@@ -111,7 +111,6 @@ def main():
 
     # Information we're going to be playing with and not writing directly to the file.
     channel_name = ""
-    password = ""
 
     # Location of the userdata file.
     dirname = os.path.dirname(__file__)
@@ -165,7 +164,7 @@ def main():
     account['account_name'] = channel_name + "@" + account['instance']
 
     # I'm going to be using a JSON Lines file (http://jsonlines.org/) for storing details. (I just like JSON okay)
-    json_account = json.dumps(account)
+    json.dumps(account)
     acct_already_exists = False
     try:
         with jsonlines.open(userdata_file) as reader:
