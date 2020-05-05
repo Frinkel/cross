@@ -2,7 +2,7 @@ import os
 import re
 
 dirname = os.path.dirname(__file__)
-userdata_file = os.path.join(dirname, 'userdata.jl')
+userdata_file = os.path.join(dirname, '../userdata.jl')
 
 fa_arrows = b'iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABj2lDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Lw1AUht+mFotUHHRQ6ZC' \
                 b'hOogFURAHpyotgoXSVrDqYHLTDyFJQ5Li4ii4FhxEF78G/QGiq4OrIAiKIOLgL/BrkRLPTQIt0nrD5Tx57zkv95wLCOcq06yuCU' \
