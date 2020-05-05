@@ -1,8 +1,8 @@
+[![DeepSource][deepsource-badge]](https://deepsource.io/gh/Frinkel/cross/?ref=repository-badge)
+
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-
-[![DeepSource][deepsource-badge]](https://deepsource.io/gh/Frinkel/cross/?ref=repository-badge)
 
   <a href="https://github.com/Frinkel/cross">
     <img src="../assets/img/arrows-alt.svg?raw=true" alt="Logo" width="80" height="80">
