@@ -1,5 +1,6 @@
 [![DeepSource][deepsource-badge]](https://deepsource.io/gh/Frinkel/cross/?ref=repository-badge)
 [![BCH compliance][bettercode-badge]](https://bettercodehub.com/)
+![Python application](https://github.com/Frinkel/cross/workflows/Python%20application/badge.svg?branch=master)
 
 <!-- PROJECT LOGO -->
 <br />
