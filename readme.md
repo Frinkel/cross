@@ -171,8 +171,8 @@ Make sure you've run one of the scripts in the `auth_handlers/` folder to comple
 The following are plans I have for the possible future for this application:
 * Automate overwriting account entries
 * Add auto-detect of character count restraints on Mastodon-based instances that support it
-* Add command line arguments for the different applications
-* Add IFTTT support via Maker Webhooks (possibly? Character limits may make that difficult)
+* Add command line arguments for the different scripts
+* Add IFTTT support via Maker Webhooks (possibly?)
 * Figure out/fix OAuth2 integration with Hubzilla so I can stop using basic web auth
 * Attempt to plea with Twitter for a developer account and add Twitter support
 * Make GUIs for the authentication handlers?

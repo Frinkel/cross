@@ -60,9 +60,21 @@ def main():
 
     # Read the file. Gather the account names.
     account_names = []
-    with jsonlines.open(userdata_file) as reader:
-        for account in reader:
-            account_names.append(account['account_name'])
+    try:
+        with jsonlines.open(userdata_file) as reader:
+            for account in reader:
+                account_names.append(account['account_name'])
+    except FileNotFoundError:
+        # If the file doesn't exist, error out and let the user know why.
+        print("Error: User data file doesn't exist.")
+        print("Please add an account via one of the scripts in the auth_handlers directory. Bailing...")
+        exit(1)
+    if account_names == []:
+        # If there are no entries in the file, error out and let the user know why.
+        print("Error: No accounts on file.")
+        print("Please add an account via one of the scripts in the auth_handlers directory. Bailing...")
+        exit(1)
+    # Print all the accounts we've got.
     print("Accounts on file:")
     pp.pprint(account_names)
     print()
