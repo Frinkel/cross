@@ -119,9 +119,9 @@ pip3 install -r requirements.txt
 
 ### Configuration
 If you attempt to launch the program right away, you'll be shooed away as you haven't set up any accounts to cross-post
-over. To set this up, go to the `auth_handlers/` folder and run the corresponding script once for each account you
-wish to set up with the cross-poster. The script will tell you what to do from there. Note - for `masto.py`, you will
-need access to a browser.
+over. To set this up, run the `hubzilla_auth.py` or `masto_auth.py` script for each account you wish to set up with the 
+cross-poster. The script will tell you what to do from there. Note - for `masto_auth.py`, you will need access to a 
+browser.
 
 When all's said and done, you will have a file in the root application directory, `userdata.jl`, that contains a Json
 Lines-formatted list of your accounts and their credentials. Do NOT share this file with ANYONE! Doing so is the
