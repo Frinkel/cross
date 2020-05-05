@@ -97,7 +97,7 @@ def main():
     account['account_name'] = "@" + username + "@" + account['instance']
 
     # and now, we write!
-    json_account = json.dumps(account)
+    json.dumps(account)
     acct_already_exists = False
     with jsonlines.open(userdata_file) as reader:
         for obj in reader:
