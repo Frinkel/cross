@@ -62,7 +62,6 @@ def post_sel_accts(selected_accounts, subject, post):
 
 
 def append_account(account):
-    account_list = []
     acct_already_exists = False
     try:
         with jsonlines.open(common.userdata_file) as reader:

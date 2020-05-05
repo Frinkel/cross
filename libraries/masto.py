@@ -26,7 +26,7 @@ def get_session_and_login_url(instance, client_id, client_secret, scopes):
     except mastodon.MastodonNetworkError:
         print("Couldn't connect to the instance for some reason, bailing...")
         exit(1)
-    except:
+    except mastodon.MastodonError:
         print("Something happened! (Something happened!)")
         exit(2)
 
