@@ -162,12 +162,12 @@ be rejected by your instance if it exceeds the character limit.
 ## Troubleshooting
 **Help! The app claims that my instance isn't working, but it's up and works completely!**
 
-Please submit a bug request with your instance domain.
+Please submit an issue to the repo. Include your instance domain in the bug report.
 
 
 **I'm trying to launch the application, but it says a file doesn't exist or something?**
 
-Make sure you've run one of the scripts in the `auth_handlers/` folder to completion.
+Make sure you've added an account through the `masto_auth.py` or `hubzilla_auth.py` script first.
 
 
 
