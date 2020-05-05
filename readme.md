@@ -1,4 +1,5 @@
 [![DeepSource][deepsource-badge]](https://deepsource.io/gh/Frinkel/cross/?ref=repository-badge)
+[![BCH compliance][bettercode-badge]](https://bettercodehub.com/)
 
 <!-- PROJECT LOGO -->
 <br />
@@ -212,4 +213,4 @@ Project Link: [https://github.com/Frinkel/cross](https://github.com/Frinkel/cros
 
 [product-screenshot]: ../assets/img/CrossGUI.png?raw=true
 [deepsource-badge]: https://static.deepsource.io/deepsource-badge-light-mini.svg
-[deepsource-url]: 
+[bettercode-badge]: https://bettercodehub.com/edge/badge/Frinkel/cross?branch=master&token=e5e2e6529c31c24022d933ca802f0171315fd866
