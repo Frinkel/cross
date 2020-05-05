@@ -2,6 +2,8 @@
 <br />
 <p align="center">
 
+[![DeepSource][deepsource-badge]](https://deepsource.io/gh/Frinkel/cross/?ref=repository-badge)
+
   <a href="https://github.com/Frinkel/cross">
     <img src="../assets/img/arrows-alt.svg?raw=true" alt="Logo" width="80" height="80">
   </a>
@@ -209,3 +211,5 @@ Project Link: [https://github.com/Frinkel/cross](https://github.com/Frinkel/cros
 * [Insomnia REST Client](https://insomnia.rest/) for saving me from a dozen headaches
 
 [product-screenshot]: ../assets/img/CrossGUI.png?raw=true
+[deepsource-badge]: https://static.deepsource.io/deepsource-badge-light-mini.svg
+[deepsource-url]: 
