@@ -1,3 +1,6 @@
+# NOTE
+I admittedly don't know if this is still functional, and I don't really have plans on updating it. I created it for a final project for community college, and admittedly I haven't used Hubzilla nearly as much as I had expected (aka at all), so I kinda haven't had the motivation to work on it. Perhaps it may be usable for someone, so I'm archiving the project so it can at least remain accessible.
+
 [![DeepSource][deepsource-badge]](https://deepsource.io/gh/Frinkel/cross/?ref=repository-badge)
 [![BCH compliance][bettercode-badge]](https://bettercodehub.com/)
 ![Python application](https://github.com/Frinkel/cross/workflows/Python%20application/badge.svg?branch=master)
